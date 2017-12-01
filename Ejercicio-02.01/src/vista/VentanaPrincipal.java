@@ -115,10 +115,16 @@ public class VentanaPrincipal extends JFrame {
     public File validar(File list ){
        
         if(list.isFile()){
+            DefaultMutableTreeNode hijo= new DefaultMutableTreeNode(list.getName());
+            this.modeloArbol.insertNodeInto(hijo, this.treenode, 0);
             System.out.println(list.getPath());
         return list;
         
         }else if(list.isDirectory()){
+            DefaultMutableTreeNode  hijo= new DefaultMutableTreeNode(list.getName());
+            DefaultMutableTreeNode  hij1= new DefaultMutableTreeNode(list.getName());
+            this.modeloArbol.insertNodeInto(hijo, this.treenode, 0);
+            this.modeloArbol.insertNodeInto(hij1, hijo, 0);
            System.out.println(list.getPath());
            for(File as: list.listFiles())
             validar(as);

@@ -104,10 +104,20 @@ public class EventoVentanaPrincipal implements ActionListener {
         }
 
         if (ae.getSource().equals(this.ventana.getBotonList().get(4))) {
-            this.treenode1 = new DefaultMutableTreeNode(this.ventana.getTextoList().get(0).getText());
-            this.ventana.setModeloArbol(new DefaultTreeModel(treenode1));
-            this.ventana.setNodo(new JTree(this.ventana.getModeloArbol()));
-            //this.ventana.setScroll(new JScrollPane(this.ventana.validar(treenode1)));
+            if(this.ventana.getTextoList().get(0).getText().equals("")){
+             JOptionPane.showMessageDialog(this.ventana, "debe llenar el campo directorio raiz o carpeta ","Warning",JOptionPane.INFORMATION_MESSAGE);
+            }else{
+            File archivo = new File( this.ventana.getTextoList().get(0).getText().toString());
+          
+             File [] list =archivo.listFiles();
+            for(File a:list){
+              this.ventana.validar(a);
+              }
+            }
+            
+            
+        
+         
           
         }
     }
