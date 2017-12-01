@@ -10,6 +10,7 @@ import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.LayoutManager;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.*;
@@ -86,15 +87,44 @@ public class VentanaPrincipal extends JFrame {
         panelAccion.add(this.botonList.get(4));
         panelDisenio.add(panelTitulo);
         panelDisenio.add(panelIngreso);
-        panelDisenio.add(panelAccion);      
+        panelDisenio.add(panelAccion);
 
         panelNorte.add(panelDisenio, BorderLayout.NORTH);
+        
+        this.treenode = new DefaultMutableTreeNode("padre");
+        this.modeloArbol = new DefaultTreeModel(treenode);
+        this.nodo = new JTree(this.modeloArbol);
+        this.scroll = new JScrollPane(this.nodo);
+        DefaultMutableTreeNode hijo = new DefaultMutableTreeNode("Padre");
+        DefaultMutableTreeNode hijo1 = new DefaultMutableTreeNode("hijo1");
+        DefaultMutableTreeNode hijo2 = new DefaultMutableTreeNode("hijo2");
+        DefaultMutableTreeNode hijo3 = new DefaultMutableTreeNode("hijo3");
+        DefaultMutableTreeNode hijo4 = new DefaultMutableTreeNode("hijo4");
+        this.modeloArbol.insertNodeInto(hijo, this.treenode, 0);
+        this.modeloArbol.insertNodeInto(hijo3, this.treenode, 1);
+        this.modeloArbol.insertNodeInto(hijo1, hijo, 0);
+        this.modeloArbol.insertNodeInto(hijo2, hijo, 1);
+        this.modeloArbol.insertNodeInto(hijo4, hijo, 2);
+        
 
         this.panelInicial.add(panelNorte, BorderLayout.NORTH);
         this.panelInicial.add(this.scroll, BorderLayout.CENTER);
 
         this.add(this.panelInicial);
 
+    }
+    public File validar(File list ){
+       
+        if(list.isFile()){
+            System.out.println(list.getPath());
+        return list;
+        
+        }else if(list.isDirectory()){
+           System.out.println(list.getPath());
+           for(File as: list.listFiles())
+            validar(as);
+        }
+            return list;
     }
 
     public DefaultTreeModel getModeloArbol() {
@@ -176,5 +206,5 @@ public class VentanaPrincipal extends JFrame {
     public void setCombo(JComboBox combo) {
         this.combo = combo;
     }
-    
+
 }
