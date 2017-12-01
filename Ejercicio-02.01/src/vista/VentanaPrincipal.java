@@ -106,7 +106,6 @@ public class VentanaPrincipal extends JFrame {
         this.modeloArbol.insertNodeInto(hijo2, hijo, 1);
         this.modeloArbol.insertNodeInto(hijo4, hijo, 2);
         
-
         this.panelInicial.add(panelNorte, BorderLayout.NORTH);
         this.panelInicial.add(this.scroll, BorderLayout.CENTER);
 

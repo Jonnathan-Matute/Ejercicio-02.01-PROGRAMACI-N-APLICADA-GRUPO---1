@@ -14,6 +14,7 @@ import javax.swing.tree.DefaultTreeModel;
 public class EventoVentanaPrincipal implements ActionListener {
 
     private VentanaPrincipal ventana;
+    private DefaultMutableTreeNode treenode1;
 
     public EventoVentanaPrincipal(VentanaPrincipal ventana) {
 
@@ -24,6 +25,7 @@ public class EventoVentanaPrincipal implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent ae) {
+
         try {
             //Crear Raiz
             if (ae.getSource().equals(this.ventana.getBotonList().get(0))) {
@@ -100,14 +102,13 @@ public class EventoVentanaPrincipal implements ActionListener {
         } catch (ExcepcionCamposVacios ex) {
             JOptionPane.showMessageDialog(ventana, "No dejar los campos vacios");
         }
+
         if (ae.getSource().equals(this.ventana.getBotonList().get(4))) {
-            System.out.println("hola");
-            this.ventana.setTreenode(new DefaultMutableTreeNode("eclipse"));
-            this.ventana.setModeloArbol(new DefaultTreeModel(this.ventana.getTreenode()));
+            this.treenode1 = new DefaultMutableTreeNode(this.ventana.getTextoList().get(0).getText());
+            this.ventana.setModeloArbol(new DefaultTreeModel(treenode1));
             this.ventana.setNodo(new JTree(this.ventana.getModeloArbol()));
-            this.ventana.setScroll(new JScrollPane(this.ventana.getNodo()));
-            DefaultMutableTreeNode hijo = new DefaultMutableTreeNode("java");
-            this.ventana.getModeloArbol().insertNodeInto(hijo, this.ventana.getTreenode(), 0);
+            //this.ventana.setScroll(new JScrollPane(this.ventana.validar(treenode1)));
+          
         }
     }
 }
