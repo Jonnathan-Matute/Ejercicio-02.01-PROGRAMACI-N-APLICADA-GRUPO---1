@@ -6,7 +6,6 @@
 package vista;
 
 import controlador.EventoVentanaPrincipal;
-import controlador.GestionDato;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
@@ -14,14 +13,13 @@ import java.awt.LayoutManager;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.*;
+import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
-import modelo.FileCA;
 
 public class VentanaPrincipal extends JFrame {
 
-    private Object[][] datos;
-    private Object[] encabezado;
-    private DefaultTreeModel modeloTabla;
+    private DefaultTreeModel modeloArbol;
+    private DefaultMutableTreeNode treenode;
     private JTree nodo;
     private JScrollPane scroll;
     private JButton boton;
@@ -30,39 +28,29 @@ public class VentanaPrincipal extends JFrame {
     private List<JTextField> textoList;
     private List<JButton> botonList;
     private JComboBox combo;
-    private GestionDato gD;
 
-    public VentanaPrincipal(String titulo, GestionDato gD) {
+    public VentanaPrincipal(String titulo) {
         this.setTitle(titulo);
-        this.gD = gD;
         this.setDefaultCloseOperation(3);
         this.setSize(600, 500);
         this.setLocation(360, 20);
         this.iniciaCompontente();
     }
 
-    public Object[][] getDatos() {
-        return datos;
+    public DefaultTreeModel getModeloArbol() {
+        return modeloArbol;
     }
 
-    public void setDatos(Object[][] datos) {
-        this.datos = datos;
+    public void setModeloArbol(DefaultTreeModel modeloArbol) {
+        this.modeloArbol = modeloArbol;
     }
 
-    public Object[] getEncabezado() {
-        return encabezado;
+    public DefaultMutableTreeNode getTreenode() {
+        return treenode;
     }
 
-    public void setEncabezado(Object[] encabezado) {
-        this.encabezado = encabezado;
-    }
-
-    public DefaultTreeModel getModeloTabla() {
-        return modeloTabla;
-    }
-
-    public void setModeloTabla(DefaultTreeModel modeloTabla) {
-        this.modeloTabla = modeloTabla;
+    public void setTreenode(DefaultMutableTreeNode treenode) {
+        this.treenode = treenode;
     }
 
     public JTree getNodo() {
@@ -119,14 +107,6 @@ public class VentanaPrincipal extends JFrame {
 
     public void setBotonList(List<JButton> botonList) {
         this.botonList = botonList;
-    }
-
-    public GestionDato getgD() {
-        return gD;
-    }
-
-    public void setgD(GestionDato gD) {
-        this.gD = gD;
     }
 
     public JComboBox getCombo() {
@@ -190,31 +170,14 @@ public class VentanaPrincipal extends JFrame {
 
         panelNorte.add(panelDisenio, BorderLayout.NORTH);
 
-
-        /*this.datos=cargarDatos(this.gD.getArtistaList().size(), this.encabezado.length);
-        this.modeloTabla = new DefaultTableModel(this.datos, this.encabezado);
-        this.tabla = new JTable(this.modeloTabla);
-        this.scroll = new JScrollPane(this.tabla);*/
+        this.modeloArbol = new DefaultTreeModel(this.treenode);
+        this.nodo = new JTree(this.modeloArbol);
+        this.scroll = new JScrollPane(this.nodo);
 
         this.panelInicial.add(panelNorte, BorderLayout.NORTH);
-        //this.panelInicial.add(this.scroll, BorderLayout.CENTER);
+        this.panelInicial.add(this.scroll, BorderLayout.CENTER);
 
         this.add(this.panelInicial);
 
     }
-    /*public Object[][] cargarDatos(int f, int c){
-        Object[][] retorno=new Object[f][c];
-        int i=0;
-        for(Artista a:this.gD.getArtistaList()){
-            retorno[i][0]=a.getCodigo();
-            retorno[i][1]=a.getNombre();
-            retorno[i][2]=a.getApellido();
-            retorno[i][3]=a.getCedula();
-            retorno[i][4]=a.getGeneroMusical();
-            retorno[i][5]=a.getAnioExperiencia();
-            i++;
-        }
-        return retorno;
-    }*/
-
 }

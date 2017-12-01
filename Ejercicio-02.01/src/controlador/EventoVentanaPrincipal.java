@@ -1,6 +1,5 @@
 package controlador;
 
-import modelo.FileCA;
 import vista.VentanaPrincipal;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -9,6 +8,7 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.tree.DefaultMutableTreeNode;
 
 public class EventoVentanaPrincipal implements ActionListener {
 
@@ -30,13 +30,6 @@ public class EventoVentanaPrincipal implements ActionListener {
                 }
                 String nombre1 = this.ventana.getTextoList().get(0).getText();
                 System.out.println(nombre1);
-                FileCA fCA = new FileCA(nombre1);
-                for (FileCA fca : this.ventana.getgD().getFileCAList()) {
-                    if (fca.getNombre().equals(fCA.getNombre())) {
-                        throw new ExcepcionRepetidos("Dato Repetido");
-                    }
-                }
-                this.ventana.getgD().addFileCA(fCA);
                 f = new File("" + nombre1);
                 f.mkdir();
                 for (int i = 0; i < this.ventana.getTextoList().size(); i++) {
@@ -53,13 +46,6 @@ public class EventoVentanaPrincipal implements ActionListener {
                 String nombre1 = this.ventana.getTextoList().get(0).getText();
                 String nombre2 = this.ventana.getTextoList().get(1).getText();
                 System.out.println(nombre1);
-                FileCA fCA = new FileCA(nombre1 + "/" + nombre2);
-                for (FileCA fca : this.ventana.getgD().getFileCAList()) {
-                    if (fca.getNombre().equals(fCA.getNombre())) {
-                        throw new ExcepcionRepetidos("Dato Repetido");
-                    }
-                }
-                this.ventana.getgD().addFileCA(fCA);
                 File f3 = new File("" + nombre1), f2 = null;
                 f3.mkdir();
                 for (int i = 0; i < nombre2.length(); i++) {
@@ -111,11 +97,11 @@ public class EventoVentanaPrincipal implements ActionListener {
             }
         } catch (ExcepcionCamposVacios ex) {
             JOptionPane.showMessageDialog(ventana, "No dejar los campos vacios");
-        } catch (ExcepcionRepetidos ex) {
-            JOptionPane.showMessageDialog(ventana, "Carpeta o Archivo ya creado");
         }
         if (ae.getSource().equals(this.ventana.getBotonList().get(1))) {
-
+            DefaultMutableTreeNode nodo = new DefaultMutableTreeNode("eclipse");
+            DefaultMutableTreeNode hijo = new DefaultMutableTreeNode("java");
+            this.ventana.getModeloArbol().insertNodeInto(hijo, nodo, 1);
         }
     }
 }
