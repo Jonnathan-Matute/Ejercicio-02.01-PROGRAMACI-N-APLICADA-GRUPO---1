@@ -5,6 +5,11 @@
  */
 package vista;
 
+import controlador.GestionDato;
+import java.util.ArrayList;
+import java.util.List;
+import modelo.FileCA;
+
 /**
  *
  * @author jonnathan matute
@@ -16,6 +21,10 @@ public class Principal {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        List<FileCA> fCA= new ArrayList<FileCA>();
+        GestionDato gD= new GestionDato(fCA);
+        VentanaPrincipal vP = new VentanaPrincipal("Files",gD);
+        vP.setVisible(true);
     }
     
 }
