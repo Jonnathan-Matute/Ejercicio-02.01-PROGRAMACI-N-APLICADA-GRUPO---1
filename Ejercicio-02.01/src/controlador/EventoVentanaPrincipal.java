@@ -8,7 +8,10 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
+import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
 
 public class EventoVentanaPrincipal implements ActionListener {
 
@@ -20,6 +23,7 @@ public class EventoVentanaPrincipal implements ActionListener {
     }
 
     File f;
+
     @Override
     public void actionPerformed(ActionEvent ae) {
         try {
@@ -54,7 +58,7 @@ public class EventoVentanaPrincipal implements ActionListener {
                         String extension = (nombre2.substring(i + 1, nombre2.length()));
                         File f1 = new File("" + nombre1);
                         try {
-                            f = new File (File.createTempFile(nombre3, "." + extension, new File(f3.getPath())).getPath());
+                            f = new File(File.createTempFile(nombre3, "." + extension, new File(f3.getPath())).getPath());
                             f2 = new File(f1.getPath() + "/" + nombre2);
                         } catch (IOException ex) {
                             System.out.println("Error");
@@ -91,17 +95,21 @@ public class EventoVentanaPrincipal implements ActionListener {
                 if (this.ventana.getTextoList().get(0).getText().equals("")) {
                     throw new ExcepcionCamposVacios("");
                 }
-                f = new File(""+this.ventana.getTextoList().get(0).getText());
+                f = new File("" + this.ventana.getTextoList().get(0).getText());
                 System.out.println(f.getPath());
                 f.delete();
             }
         } catch (ExcepcionCamposVacios ex) {
             JOptionPane.showMessageDialog(ventana, "No dejar los campos vacios");
         }
-        if (ae.getSource().equals(this.ventana.getBotonList().get(1))) {
-            DefaultMutableTreeNode nodo = new DefaultMutableTreeNode("eclipse");
+        if (ae.getSource().equals(this.ventana.getBotonList().get(4))) {
+            System.out.println("hola");
+            this.ventana.setTreenode(new DefaultMutableTreeNode("eclipse"));
+            this.ventana.setModeloArbol(new DefaultTreeModel(this.ventana.getTreenode()));
+            this.ventana.setNodo(new JTree(this.ventana.getModeloArbol()));
+            this.ventana.setScroll(new JScrollPane(this.ventana.getNodo()));
             DefaultMutableTreeNode hijo = new DefaultMutableTreeNode("java");
-            this.ventana.getModeloArbol().insertNodeInto(hijo, nodo, 1);
+            this.ventana.getModeloArbol().insertNodeInto(hijo, this.ventana.getTreenode(), 0);
         }
     }
 }

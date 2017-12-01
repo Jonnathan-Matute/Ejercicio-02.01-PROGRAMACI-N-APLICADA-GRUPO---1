@@ -170,10 +170,6 @@ public class VentanaPrincipal extends JFrame {
 
         panelNorte.add(panelDisenio, BorderLayout.NORTH);
 
-        this.modeloArbol = new DefaultTreeModel(this.treenode);
-        this.nodo = new JTree(this.modeloArbol);
-        this.scroll = new JScrollPane(this.nodo);
-
         this.panelInicial.add(panelNorte, BorderLayout.NORTH);
         this.panelInicial.add(this.scroll, BorderLayout.CENTER);
 
